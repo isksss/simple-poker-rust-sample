@@ -1,3 +1,5 @@
+use rand::seq::SliceRandom;
+
 #[derive(Debug, Clone, Copy, PartialEq)]
 enum Suit {
     Spade,
@@ -22,5 +24,7 @@ fn main() {
         }
     }
 
+    let mut rng = rand::thread_rng();
+    deck.shuffle(&mut rng);
     println!("{:?}", deck);
 }
