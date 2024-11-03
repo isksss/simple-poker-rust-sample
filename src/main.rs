@@ -43,4 +43,24 @@ fn main() {
     for (i, card) in hand.iter().enumerate() {
         println!("{:}: {:?} {}", i + 1, card.suit, card.rank);
     }
+
+    // 入れ替えるカードを選択
+    println!("入れ変えるカードを選択してください。[1-5]");
+    let mut input = String::new();
+    std::io::stdin().read_line(&mut input).unwrap();
+    let input: Vec<usize> = input
+        .split_whitespace()
+        .map(|s| s.parse().unwrap())
+        .collect::<Vec<usize>>();
+
+    // 入れ替えるカードを交換
+    for i in input {
+        hand[i - 1] = deck.pop().unwrap();
+    }
+
+    // 手札を表示
+    println!("--- 手札 ---");
+    for (i, card) in hand.iter().enumerate() {
+        println!("{:}: {:?} {}", i + 1, card.suit, card.rank);
+    }
 }
