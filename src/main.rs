@@ -63,4 +63,39 @@ fn main() {
     for (i, card) in hand.iter().enumerate() {
         println!("{:}: {:?} {}", i + 1, card.suit, card.rank);
     }
+
+    // 役を判定
+
+    // フラッシュ
+    let is_flush = hand.iter().all(|card| card.suit == hand[0].suit);
+    // ストレート
+    let is_straight = hand.windows(2).all(|w| w[0].rank + 1 == w[1].rank);
+    // フォーカード
+    let is_fourcard = hand.windows(4).any(|w| w[0].rank == w[3].rank);
+    // スリーカード
+    let is_threecard = hand.windows(3).any(|w| w[0].rank == w[2].rank);
+    // ツーペア
+    let is_twopair = hand.windows(2).filter(|w| w[0].rank == w[1].rank).count() == 2;
+    // ワンペア
+    let is_onepair = hand.windows(2).any(|w| w[0].rank == w[1].rank);
+
+    if is_flush && is_straight {
+        println!("ストレートフラッシュ");
+    } else if is_fourcard {
+        println!("フォーカード");
+    } else if is_threecard && is_onepair {
+        println!("フルハウス");
+    } else if is_flush {
+        println!("フラッシュ");
+    } else if is_straight {
+        println!("ストレート");
+    } else if is_threecard {
+        println!("スリーカード");
+    } else if is_twopair {
+        println!("ツーペア");
+    } else if is_onepair {
+        println!("ワンペア");
+    } else {
+        println!("ハイカード");
+    }
 }
